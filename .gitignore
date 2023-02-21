@@ -1,0 +1,11 @@
+obj
+bin
+appsettings.json
+.vs
+*.gen
+.idea
+/Properties/PublishProfiles/FolderProfile.pubxml.user
+/Properties/PublishProfiles/FolderProfile.pubxml
+/NetDaemonCodegen/ServicesMetaData.json
+/NetDaemonCodegen/EntityMetaData.json
+/HomeAssistantGenerated.cs

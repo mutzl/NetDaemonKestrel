@@ -1,0 +1,42 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Demo</h1>
+
+<p role="status">Sun: @Entities.Sun.Sun.State</p>
+
+<p role="status">UTC: @Entities.Sensor.TimeUtc.State</p>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+
+
+    [Inject]
+    public IScheduler Scheduler { get; set; } = null!;
+
+    [Inject]
+    public Entities Entities { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        Scheduler.SchedulePeriodic(TimeSpan.FromSeconds(1), async () =>
+        {
+            await InvokeAsync(() =>
+            {
+                IncrementCount();
+                StateHasChanged();
+            });
+        });
+    }
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
