@@ -9,17 +9,8 @@ using System.Reflection;
 
 try
 {
-
+    
     var builder = WebApplication.CreateBuilder(args);
-    builder.WebHost.ConfigureKestrel(options =>
-    {
-        options.ListenAnyIP(10000);
-    });
-
-    builder.Services.AddRazorPages();
-    builder.Services.AddServerSideBlazor();
-
-    builder.Services.AddControllers();
 
     builder.Host
         .UseNetDaemonAppSettings()
@@ -33,32 +24,47 @@ try
                 .AddAppsFromAssembly(Assembly.GetExecutingAssembly())
                 .AddNetDaemonStateManager()
                 .AddNetDaemonScheduler()
-                .AddHomeAssistantGenerated()
-                ;
-
+                .AddHomeAssistantGenerated();
         });
 
 
+    // adding MVC / WebAPI controllers
+    builder.Services.AddControllers();
+
+    // Blazor Server
+    builder.Services.AddRazorPages();
+    builder.Services.AddServerSideBlazor();
+
+
+    // Kestrel on port 10000
+    // TODO: SSL
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenAnyIP(10000);
+    });
+
     var app = builder.Build();
 
+    // minimal API
     app.MapGet("/mini", () => "Hello from Minimal API!");
 
 
     if (!app.Environment.IsDevelopment())
     {
         app.UseExceptionHandler("/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
     }
 
-
     //app.UseHttpsRedirection();
+
+    // use controller routes
+    app.MapControllers();
+
+    // configure Blazor
     app.UseStaticFiles();
     app.UseRouting();
     app.MapBlazorHub();
     app.MapFallbackToPage("/_Host");
-
-    app.MapControllers();
 
     await app.RunAsync();
 

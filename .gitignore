@@ -9,3 +9,5 @@ appsettings.json
 /NetDaemonCodegen/ServicesMetaData.json
 /NetDaemonCodegen/EntityMetaData.json
 /HomeAssistantGenerated.cs
+/Properties/PublishProfiles/FolderProfile1.pubxml
+*.user
