@@ -87,6 +87,50 @@ And from a browser you can easily check the added functionality hosted on Kestre
 When adding Blazor artefacts from a different solution, search for all occurrences of the old project name and replace it with the new namespace.
 In case you still run into problems, close and reopen Visual Studio.
 
+In this demo, I just copied the components of the default Blazor project into the solution and modified only the `Counter.razor` file to show, 
+how easy it is, to inject the ND services and use the generated HA classes.
+```C#
+@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+<h1>Demo</h1>
+
+<p role="status">Sun: @Entities.Sun.Sun.State</p>
+<p role="status">UTC: @Entities.Sensor.TimeUtc.State</p>
+
+<p role="status">Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+
+    [Inject]
+    public IScheduler Scheduler { get; set; } = null!;
+
+    [Inject]
+    public Entities Entities { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        // update the counter automatically every second, using the wellknown IScheduler
+        Scheduler.SchedulePeriodic(TimeSpan.FromSeconds(1), async () =>
+        {
+            await InvokeAsync(() =>
+            {
+                IncrementCount();
+                StateHasChanged();
+            });
+        });
+    }
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+```
+
 Now let's deploy the whole thing. 
 While it is perfectly fine, to copy the binaries to `/config/netdaemon3` for a _normal_ NetDaemon project, it will fail for Blazor.
 We need to Publish the WebSite in order to build the web artefacts in `wwwroot`.
