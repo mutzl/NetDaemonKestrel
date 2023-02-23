@@ -8,7 +8,7 @@ This project just adds a few things to the original NetDaemon template in order 
 You don't need to use this project as a starting template. You can easily update your existing ND solution instead, simply follow the steps described in this document.
 
 ## Motivation
-There are scenarios where you want to provide data via RESTful services or WebSocket instead of providing everything in a HA entity.
+There are scenarios where you want to provide data via RESTful services or WebSocket instead of storing everything in a HA entity.
 Or maybe you want to render complex UI without becoming a lovelace wizard, instead leveraging your .NET skills. 
 Using Blazor Server and visualizing the output in a lovelace iframe-card might be an option. (Including hassle-free live updates, e.g. from your sensor data.)
 
