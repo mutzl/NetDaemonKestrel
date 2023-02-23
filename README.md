@@ -1,16 +1,16 @@
 # Project template including Kestrel server
 
-This project just adds a few things to the original NetDaemon template, to spin up a Kestrel server that hosts
+This project just adds a few things to the original NetDaemon template in order to spin up a Kestrel server that hosts
 - a minimal API
 - a Web API controller
 - Blazor server pages (which can even be embedded in lovelace - at least locally.)
 
-You don't need to use this project as a starting template. You can easily update your existing ND solution, instead. Just follow the steps described in this document.
+You don't need to use this project as a starting template. You can easily update your existing ND solution instead, simply follow the steps described in this document.
 
 ## Motivation
-There are scenarios, where you want to provide data via RESTful services or WebSocket instead of persisting everything in a HA entity.
-Or rendering complex UI without becoming a lovelace wizzard, but leveraging your .NET skills instead. 
-Using Blazor Server and visualizing the output in a lovelace iframe-card might be an option. (including hassle-free live updates, e.g. from your sensor data.)
+There are scenarios where you want to provide data via RESTful services or WebSocket instead of providing everything in a HA entity.
+Or maybe you want to render complex UI without becoming a lovelace wizard, instead leveraging your .NET skills. 
+Using Blazor Server and visualizing the output in a lovelace iframe-card might be an option. (Including hassle-free live updates, e.g. from your sensor data.)
 
 
 ## Steps
@@ -20,7 +20,7 @@ Change the `SDK` in the `csproj` file to
 <Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-In the `program.cs`, change from `IHostBuilder` to the `WebApplicationBuilder`.
+In `program.cs`, change from `IHostBuilder` to the `WebApplicationBuilder`.
 The ND configuration remains the same.
 
 ```C#
@@ -80,15 +80,15 @@ await app.RunAsync();
 ```
 
 Starting the project with F5 Debug mode runs the ND Apps.
-And from a browser you can easily check the added functionality hosted on Kestrel.
+You can easily check the added functionality hosted on Kestrel from a browser.
 
 ![](screenshot1.png)
 
-When adding Blazor artefacts from a different solution, search for all occurrences of the old project name and replace it with the new namespace.
+When adding Blazor artifacts from a different solution, search for all occurrences of the old project name and replace it with the new namespace.
 In case you still run into problems, close and reopen Visual Studio.
 
-In this demo, I just copied the components of the default Blazor project into the solution and modified only the `Counter.razor` file to show, 
-how easy it is, to inject the ND services and use the generated HA classes.
+In this demo, I just copied the components of the default Blazor project into the solution and modified only the `Counter.razor` file to show 
+how easy it is to inject the ND services and use the generated HA classes.
 ```C#
 @page "/counter"
 
@@ -132,8 +132,8 @@ how easy it is, to inject the ND services and use the generated HA classes.
 ```
 
 Now let's deploy the whole thing. 
-While it is perfectly fine, to copy the binaries to `/config/netdaemon3` for a _normal_ NetDaemon project, it will fail for Blazor.
-We need to Publish the WebSite in order to build the web artefacts in `wwwroot`.
+While it is perfectly fine to copy the binaries to `/config/netdaemon3` for a _normal_ NetDaemon project, it will fail for Blazor.
+We need to Publish the WebSite in order to build the web artifacts in `wwwroot`.
 
 ![Screenshot2](screenshot2.png)
 
@@ -142,9 +142,9 @@ Just select `Folder` as target and configure the location.
 ![Screenshot3](screenshot3.png)
 
 
-After every publishing the NetDaemon AddOn needs to be restarted.
+After every publishing, the NetDaemon AddOn needs to be restarted.
 
-And one final - but important! - step: you need to enable and map the port, where the Kestrel is listening, in the configuration section of the AddOn.
+There's one final - but important! - step: you need to enable and map the port where the Kestrel is listening in the configuration section of the AddOn.
 ![Screenshot4](screenshot4.png)
 
 ## Limitations
