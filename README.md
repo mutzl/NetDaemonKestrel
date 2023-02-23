@@ -5,7 +5,7 @@ This project just adds a few things to the original NetDaemon template, to spin 
 - a Web API controller
 - Blazor server pages (which can even be embedded in lovelace - at least locally.)
 
-You don't need to use this project as a starting template. You can easily update your existing ND solution, instead. Just follow the steps descriped in this document.
+You don't need to use this project as a starting template. You can easily update your existing ND solution, instead. Just follow the steps described in this document.
 
 ## Motivation
 There are scenarios, where you want to provide data via RESTful services or WebSocket instead of persisting everything in a HA entity.
